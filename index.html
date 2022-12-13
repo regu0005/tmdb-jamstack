@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy"
+            content="
+                default-src 'self';
+                connect-src 'self' https://api.themoviedb.org https://image.tmdb.org;
+                font-src 'self' https://fonts.googleapis.com;
+                frame-src 'self';
+                img-src 'self' data: blob: https://image.tmdb.org;
+                object-src 'none';
+                script-src 'self';
+                style-src 'self';
+            ">
+    
+    <title>Data Management</title>
+
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="form_main">
+                <div class="form_element">
+                    <form action="#" class="movie_form" id="form1" name="form1">
+                        <input type="text" id="search_movie" class="movie_search" placeholder="Search Movie">
+                        <button type="submit" class="btn" id="btn_movie">Search Movie</button>
+                    </form>
+                </div>
+                <div class="form_element">
+                    <form action="#" class="movie_form" id="form2" name="form2">
+                        <input type="text" id="search_serie" class="movie_search" placeholder="Search TV Serie">
+                        <button type="submit" class="btn" id="btn_serie">Search TV Serie</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main id="main">
+        <section class="home active">
+            <div class="container">
+                <div id="loading"></div>
+
+                <div class="search_description">
+                    <div id="search_text"></div>
+                </div>
+                <div class="movies" id="movies">
+                    <div class="movie">
+                        <div class="movie_image">
+                            <a href="#" class="movie_link">
+                                <img src="./images/cinema.jpeg">
+                            </a>
+                        </div>
+                        <div class="movie_col">
+                            <a href="#" class="movie_link">
+                                <div class="movie_title">
+                                Movie Title
+                                </div>
+                                <div class="movie_rating">
+                                Ranking
+                                </div>
+                                <div class="movie_detail">
+                                    1 Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum congue leo eget malesuada. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="movie">
+                        <div class="movie_image">
+                            <a href="#" class="movie_link">
+                                <img src="./images/cinema.jpeg">
+                            </a>
+                        </div>
+                        <div class="movie_col">
+                            <a href="#" class="movie_link">
+                                <div class="movie_title">
+                                Movie Title
+                                </div>
+                                <div class="movie_rating">
+                                Ranking
+                                </div>
+                                <div class="movie_detail">
+                                    1 Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum congue leo eget malesuada. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="err"></section>
+        <div class="main_err" id="main_err"></div>
+    </main>
+
+    <script type="module" src="./js/main.js"></script>
+</body>
+</html>

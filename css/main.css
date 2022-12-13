@@ -1,0 +1,491 @@
+:root {
+    --primary: #008c0c;
+    --primary_light: #00e80c;
+    --secondary: #a56c00;
+    --secondary_light: #d3a33b;
+    --color-shadow: #dedede;
+    --color-loader: #1a5d22;
+  }
+
+/* ---------- GENERAL CSS ---------- */
+
+html {
+    box-sizing: border-box;
+    font: normal 100%/1.3 "Montserrat", "Roboto", "Helvetica Neue", Arial,  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    -moz-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+    
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    font-family: "Lato", sans-serif;
+}
+header {
+    padding: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    background: linear-gradient(var(--secondary_light), white);
+}
+
+.container {
+  width: min(75em, 100%);
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.btn {
+  background-color: var(--secondary);
+  border: 0.0625rem solid var(--secondary);
+  box-shadow: 0 0.25rem 0.5rem #0004;
+  color: #fff;
+  padding: .75em 1.25em;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  display: inline-block;
+  cursor: pointer;
+  width: 10rem;
+  transition:
+    color .2s,
+    background-color .2s,
+    border-color .2s;
+}
+
+
+.btn:hover, .btn:focus {
+  background-color: var(--secondary_light);
+  border-color: var(--secondary_light);
+  color: #fff;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/*  ---- MOVIE STYLES ---- */
+.movie_search {
+  background-color: white;
+  border: 2px solid var(--secondary);
+  padding: 0.4rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  /* color: white; */
+  width: 80%;
+  font-family: inherit;
+  margin-bottom: 0.5rem;
+}
+
+.movie {
+  display: flex;
+  width: 100%;
+  /* border: 2px solid red; */
+  border-bottom: 2px solid var(--color-shadow);
+  padding: 1.5rem;
+}
+
+.movie_col {
+  flex-direction:column;
+  padding: 1.9rem;
+  flex: 1;
+}
+
+.movie_title {
+  font-size: 1.9rem;
+  color: var(--secondary);
+  margin-bottom: .5rem;
+  font-weight: bold;
+}
+.movie_ranking {
+  font-size: 1rem;
+  color: var(--secondary);
+  margin-bottom: 0.5rem;
+}
+.movie_image {
+  max-width: 100%;
+  display: block;
+  
+}
+.movie_image img {
+    width: 100%;
+    /* height: 20%; */
+    min-width: 7rem;
+    max-width: 100%;
+    max-height: 15rem;
+    /* max-height: 50%; */
+    object-fit: cover;
+    flex: 1;
+}
+
+.movie_detail {
+  font-size: 1.1rem;
+}
+
+.movie_image img {
+  display: block;
+  padding: 5px;
+  border-radius: 2rem 0rem 0 0rem;
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+}
+
+.movie_link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ---- CSS CREDITS ---- */
+
+.credits {
+  display: grid;
+  --cols: 1;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  
+  /* width: 60%; */
+}
+
+.form_main {
+  display: grid;
+  --cols: 1;
+  grid-template-columns: repeat(var(--cols), 1fr);
+}
+
+.form_element {
+  padding-bottom: 1rem;
+}
+
+.movie_form{
+  padding: 0.5rem;
+}
+
+.movie_credits {
+  width:  16rem;
+  margin: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0.2px 4px 5px var(--color-shadow);
+  background-color: white;
+  /* position:relative;  */
+  overflow: hidden;
+}
+
+.movie_credits img {
+  width: 100%;
+  /* height: 70%; */
+}
+
+.movie_credits_info {
+  padding: 0.5rem 1rem 1rem;
+}
+
+.movie_credits_name {
+  /* align-items: inherit; */
+  padding: 0;
+}
+
+.movie_credits_info h3 {
+  margin-top: 0;
+  color: var(--secondary);
+}
+
+.movie_credits_info span {
+  background-color: var(--secondary);
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-weight: bold;
+  color: white;
+}
+
+.movie_credits:hover .overview_credits {
+  transform: translateY(0);
+}
+
+.search_description {
+  font-size: 24px;
+  color: rgb(41, 41, 41);
+  padding-bottom: 1rem;
+}
+
+.search_word{
+  font-size: 28px;
+  color: var(--secondary);
+  font-weight: bold;
+}
+
+@media only screen and (min-width: 5em) {
+  .credits{
+    --cols: 1;
+  }
+  .form_main {
+    --cols: 1;
+  }
+  .movie_search {
+    width: 10rem;
+  }
+  .movie_detail {
+    font-size: 0.8rem;
+  }
+  .movie_image img {
+    padding: 0;
+    display: none;
+  }
+  .search_description {
+    font-size: 16px;
+  }
+  .search_word{
+    font-size: 18px;
+  }
+  .movie_col {
+    padding: 0.2rem;
+  }
+  .movie_title {
+    font-size: 1.2rem;
+    margin-bottom: .3rem;
+  }
+  .movie_ranking {
+    font-size: 0.7rem;
+    margin-bottom: 0.3rem;
+  }
+}
+
+@media only screen and (min-width: 25em) {
+  .credits{
+    --cols: 2;
+  }
+  .form_main {
+    --cols: 1;
+  }
+  .movie_search {
+    width: 70%;
+  }
+  .movie_detail {
+    font-size: 0.9rem;
+  }
+  .movie_image img {
+    padding: 0.1rem;
+    display: block;
+  }
+  .search_description {
+    font-size: 18px;
+  }
+  .search_word{
+    font-size: 20px;
+  }
+  .movie_col {
+    padding: 0.2rem;
+  }
+  .movie_title {
+    font-size: 1.4rem;
+    margin-bottom: 0.6rem;
+  }
+  .movie_ranking {
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+  }
+}
+
+@media only screen and (min-width: 45em) {
+  .credits{
+    --cols: 3;
+  }
+  .form_main {
+    --cols: 1;
+  }
+  .movie_search {
+    width: 50%;
+  }
+  .movie_detail {
+    font-size: 1rem;
+  }
+  .movie_image img {
+    padding: 0.2rem;
+    display: block;
+  }
+  .search_description {
+    font-size: 20px;
+  }
+  .search_word{
+    font-size: 24px;
+  }
+  .movie_col {
+    padding: 0.6rem;
+  }
+  .movie_title {
+    font-size: 1.6rem;
+  }
+  .movie_ranking {
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+  }
+}
+
+@media only screen and (min-width: 60em) {
+  .credits{
+    --cols: 4;
+  }
+  .form_main {
+    --cols: 2;
+  }
+  .movie_detail {
+    font-size: 1.1rem;
+  }
+  .movie_image img {
+    padding: 0.4rem;
+    display: block;
+  }
+  .search_description {
+    font-size: 24px;
+  }
+  .search_word{
+    font-size: 26px;
+  }
+  .movie_col {
+    padding: 0.8rem;
+  }
+  .movie_title {
+    font-size: 1.6rem;
+    margin-bottom: 0.6rem;
+  }
+  .movie_ranking {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media only screen and (min-width: 90em) {
+  .credits{
+    --cols: 4;
+  }
+  .form_main {
+    --cols: 2;
+  }
+  .movie_detail {
+    font-size: 1.1rem;
+  }
+  .movie_image img {
+    padding: 0.4rem;
+    display: block;
+  }
+  .search_description {
+    font-size: 24px;
+  }
+  .search_word{
+    font-size: 26px;
+  }
+  .movie_col {
+    padding: 0.8rem;
+  }
+  .movie_title {
+    font-size: 1.8rem;
+    margin-bottom: 0.6rem;
+  }
+  .movie_ranking {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* ---- ERROR STYLE ---- */
+.err {
+  background-color: #ffdddd;
+  border: 1px solid #990000;
+  color: #990000;
+  padding: 1rem 4rem;
+  font-weight: 500;
+}
+.err:empty {
+  padding: 0;
+  border: none;
+}
+
+/* ---- LOADER ---- */
+
+.loader {
+  margin-left: auto;
+  margin-right: auto;
+  grid-column: 1 / -1;
+}
+.newtons-cradle {
+  --uib-size: 40px;
+  --uib-speed: 1.4s;
+  --uib-color: var(--secondary_light);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--uib-size);
+  height: var(--uib-size);
+}
+
+.newtons-cradle__dot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 25%;
+  transform-origin: center top;
+}
+
+.newtons-cradle__dot::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 25%;
+  border-radius: 50%;
+  background-color: var(--uib-color);
+}
+
+.newtons-cradle__dot:first-child {
+  animation: swing var(--uib-speed) linear infinite;
+}
+
+.newtons-cradle__dot:last-child {
+  animation: swing2 var(--uib-speed) linear infinite;
+}
+
+@keyframes swing {
+  0% {
+    transform: rotate(0deg);
+    animation-timing-function: ease-out;
+  }
+
+  25% {
+    transform: rotate(70deg);
+    animation-timing-function: ease-in;
+  }
+
+  50% {
+    transform: rotate(0deg);
+    animation-timing-function: linear;
+  }
+}
+
+@keyframes swing2 {
+  0% {
+    transform: rotate(0deg);
+    animation-timing-function: linear;
+  }
+
+  50% {
+    transform: rotate(0deg);
+    animation-timing-function: ease-out;
+  }
+
+  75% {
+    transform: rotate(-70deg);
+    animation-timing-function: ease-in;
+  }
+}

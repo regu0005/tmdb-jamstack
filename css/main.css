@@ -5,6 +5,7 @@
     --secondary_light: #d3a33b;
     --color-shadow: #dedede;
     --color-loader: #1a5d22;
+    --color-error: red;
   }
 
 /* ---------- GENERAL CSS ---------- */
@@ -222,6 +223,13 @@ picture {
   font-size: 28px;
   color: var(--secondary);
   font-weight: bold;
+}
+.search_word_empty{
+  font-size: 28px;
+  color: var(--secondary);
+  font-weight: bold;
+  align-content: center;
+  padding-left: 3rem;
 }
 
 @media only screen and (min-width: 5em) {

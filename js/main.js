@@ -1,7 +1,5 @@
 import TMDB_API_KEY from './TMDBapi.js';
-import { NetworkError, CharactersNotAllowed, EmptyInputError, EmptyRecordsError } from './errs.js';
-
-console.log('API KEY: ' + TMDB_API_KEY);
+import { NetworkError, CharactersNotAllowed } from './errs.js';
 
 const BASE_URL          = 'https://api.themoviedb.org/3';
 const IMAGES_URL        = 'https://image.tmdb.org/t/p/w500';
@@ -26,7 +24,7 @@ let mTextMovie;
 // In this function we made the Fetch for get the Credits
 // File used: from credits.html
 function getCredits(url,type){
-    
+
     mMainCredits.innerHTML = '';
     fetch(url)
     .then((response) => {
@@ -118,7 +116,7 @@ function getInfo(url,type){
         mLoader.innerHTML = "";
 
         let results = data.results;
-
+        
         results.map( function(obj) {
             let resRoute = 'movie'; // Defaul the route for URL is movie
             let resTitle = '';
@@ -154,14 +152,15 @@ function getInfo(url,type){
             let resOverview = obj.overview;
             const resContent = document.createElement('div');
             resContent.classList.add('movie');
+
             resContent.innerHTML = `
                 <div class="movie_image">
-                    <a href="credits.html#/${resRoute}/${resID}/${resTitle}" class="movie_link">
+                    <a href="credits.html#/${resRoute}/${resID}/${resTitle}" target="_self" class="movie_link">
                         <img src="${imageURL}">
                     </a>
                 </div>
                     <div class="movie_col">
-                    <a href="credits.html#/${resRoute}/${resID}/${resTitle}" class="movie_link">
+                    <a href="credits.html#/${resRoute}/${resID}/${resTitle}" target="_self" class="movie_link">
                             <div class="movie_title">
                             ${resTitle}
                             </div>
@@ -179,9 +178,12 @@ function getInfo(url,type){
             mMainIndex.appendChild(resContent);
         });
 
+        if(results.length==0){
+            mTextMovie.innerHTML = `<span class="search_word_empty">No results found</span>`;
+        }
+
     })
     .catch(function(err){
-        console.log(err);
 
         if(err.name=='NetworkError'){
             // Got a non-404 fetch error
@@ -220,13 +222,25 @@ function searchMovies(event) {
             // CREATE THE URL WITH HASH VALUES
             let urlHash = `index.html#/movie/${mSearchMovie}`;
             location.replace(urlHash);
+
+            // HISTORY PUSHSTATE
+            let internalMovieURLHash = urlHash;
+            let movieOnlyTitle = 'Movie - ' + mSearchMovie;
+            document.title = movieOnlyTitle;
+            window.history.pushState({}, movieOnlyTitle, internalMovieURLHash);
         }
         else{
             getInfo(MOVIE_API_URL,'movie');
     
             // CREATE THE URL WITH HASH VALUES
-            let urlHash = `index.html#/movie/${mSearchMovie}`;
+            let urlHash = `index.html#/movie`;
             location.replace(urlHash);
+
+            // HISTORY PUSHSTATE
+            let internalMovieURLHash = urlHash;
+            let movieOnlyTitle = 'Movies - Top 20';
+            document.title = movieOnlyTitle;
+            window.history.pushState({}, movieOnlyTitle, internalMovieURLHash);
         }
     }
 
@@ -235,11 +249,11 @@ function searchMovies(event) {
 
         if(mSearchMovie){
             urlHash = `index.html#/movie/${mSearchMovie}`;
-            location.replace(urlHash);
+            window.location.href = urlHash;
         }
         else{
             urlHash = `index.html#/movie/`;
-            location.replace(urlHash);
+            window.location.href = urlHash;
         }
     }
 }
@@ -263,9 +277,29 @@ function searchSeries(event){
         if(mSearchSerie){
             let serieURLSearch = SERIE_SEARCH_URL + '&query=' + mSearchSerie;
             getInfo(serieURLSearch,'serie');
+
+            // CREATE THE URL WITH HASH VALUES
+            let urlHash = `index.html#/tv/${mSearchSerie}`;
+            location.replace(urlHash);
+
+            // HISTORY PUSHSTATE
+            let internalSerieURLHash = urlHash;
+            let serieOnlyTitle = 'TV Serie - ' + mSearchSerie;
+            document.title = serieOnlyTitle;
+            window.history.pushState({}, serieOnlyTitle, internalSerieURLHash);
         }
         else{
             getInfo(SERIE_API_URL,'serie');
+
+            // CREATE THE URL WITH HASH VALUES
+            let urlHash = `index.html#/tv`;
+            location.replace(urlHash);
+
+            // HISTORY PUSHSTATE
+            let internalSerieURLHash = urlHash;
+            let serieOnlyTitle = 'TV Series - Top 20';
+            document.title = serieOnlyTitle;
+            window.history.pushState({}, serieOnlyTitle, internalSerieURLHash);
         }
     
         // CREATE THE URL WITH HASH VALUES
@@ -277,11 +311,11 @@ function searchSeries(event){
         let urlHash;
         if(mSearchSerie){
             urlHash = `index.html#/tv/${mSearchSerie}`;
-            location.replace(urlHash);
+            window.location.href = urlHash;
         }
         else{
             urlHash = `index.html#/tv/`;
-            location.replace(urlHash);
+            window.location.href = urlHash;
         }
     }
 }
@@ -369,11 +403,15 @@ const APP = {
                     let searchTitle = urlParts[3];
 
                     if(searchType=='movie'){
+
                         creditsURLSearch = MOVIE_CREDITS_URL + searchID + '/credits?api_key='+ TMDB_API_KEY + '&language=en-US';
                         
                         mTextMovie.innerHTML = `Listing Credits of the Movie: <span class="search_word">"${cleanChars(searchTitle)}"</span>`;
 
                         getCredits(creditsURLSearch, searchType);
+
+                        // HISTORY PUSHSTATE
+                        document.title = 'Movie Credits - ' + searchTitle;
                     }
                     if(searchType=='tv'){
                         
@@ -382,12 +420,16 @@ const APP = {
                         mTextMovie.innerHTML = `Listing Credits of the TV Serie: <span class="search_word">"${cleanChars(searchTitle)}"</span>`;
 
                         getCredits(creditsURLSearch, searchType);
+
+
+                        // HISTORY PUSHSTATE
+                        document.title = 'TV Serie Credits - ' + searchTitle;
                     }
                 }
             }
             
             // If we are in the home page (index), we get the Movie(s) or TV Serie(s) information from getInfo function
-            if(indexURL)
+            else if(indexURL)
             {
                 let index = hash.indexOf("#");
                 if(index !== -1){
@@ -403,6 +445,7 @@ const APP = {
                     if(searchType=='movie'){
                         
                         if(searchTitle){
+
                             let movieURLSearch = MOVIE_SEARCH_URL + '&query=' + searchTitle;
 
                             // Update the value inside the input search_movie
@@ -445,6 +488,11 @@ const APP = {
 
                 }
             }
+            else{
+                // BEGIN IN INDEX.HTML
+                let urlHash = `index.html`;
+                location.replace(urlHash);
+            }
             
         // END Process to get the hash parameters and review the data that the page needs depending if the URL has index or credits
     },
@@ -454,8 +502,6 @@ const APP = {
         APP.errorBox.innerHTML = `<p>${msg}</p>`;
     },
 
-    
   };
 
 document.addEventListener("DOMContentLoaded", APP.init);
-
